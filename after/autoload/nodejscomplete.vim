@@ -103,9 +103,6 @@ function! s:getNodeComplete(base, context)"{{{
                                         \ a:base, operator)
     "echom string(compl_list)
     if len(compl_list) < 1
-       if (!len(b:node_local))
-           call s:compileLocalNodeData()
-       endif
        let compl_list = s:localDataForModuleName(declare_info.value)
     endif
 
