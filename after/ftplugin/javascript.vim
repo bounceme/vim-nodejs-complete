@@ -370,7 +370,12 @@ endfunction"}}}
 
 function! ReloadNodeComplete()"{{{
     call s:compileLocalNodeData()
-    echom "nodejsComplete: Reloaded '" . len(b:node_local.modules) . "' local nodes"
+    if (has_key(b:node_local, "modules"))
+        echom "nodejsComplete: Reloaded '" . len(b:node_local.modules) . "' local nodes"
+    else
+        echom "nodejsComplete: Found no local nodes to reload"
+    endif
+        
 endfunction"}}}
 
 command! -nargs=0 ReloadNodeComplete call ReloadNodeComplete()
@@ -378,5 +383,9 @@ command! -nargs=0 RNC call ReloadNodeComplete()
 
 if exists('&ofu')
     call s:compileLocalNodeData()
-    echom "nodejsComplete: Loaded '" . len(b:node_local.modules) . "' local nodes"
+    if (has_key(b:node_local, "modules"))
+        echom "nodejsComplete: Loaded '" . len(b:node_local.modules) . "' local nodes"
+    else
+        echom "nodejsComplete: Found no local nodes to load"
+    endif
 endif
