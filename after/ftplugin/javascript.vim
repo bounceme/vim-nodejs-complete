@@ -197,7 +197,7 @@ function! s:moduleMainFromPackageJson(jsonPath)"{{{
            let main = name . '.js'
        else
            let package = {'path': directory, 'json': json}
-           selent! echo string(package)
+           silent! echo string(package)
            call add(b:node_local_unmatched, package)
        endif
    endif
