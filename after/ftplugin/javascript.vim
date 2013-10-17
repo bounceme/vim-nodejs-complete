@@ -57,7 +57,7 @@ function! s:objectFromJson(jsonString)"{{{
             elseif (!context.isDict && nextBufIsVal)
                 call add(context.data, newContext.data)
             else
-                echom 'new dictionary was found, but no key is in the buffer and the current object is a dict. Index: ' . i
+                silent! echo 'new dictionary was found, but no key is in the buffer and the current object is a dict. Index: ' . i
             endif
             call add(path, context)
             let context = newContext
@@ -193,11 +193,11 @@ function! s:moduleMainFromPackageJson(jsonPath)"{{{
    else
        let directory = strpart(a:jsonPath, 0, match(a:jsonPath, '[^/\\]\+$'))
        if (filereadable(directory . json.name . '.js'))
-           echom 'filereadable: ' . directory . json.name . '.js'
+           silent! echo 'filereadable: ' . directory . json.name . '.js'
            let main = name . '.js'
        else
            let package = {'path': directory, 'json': json}
-           echom string(package)
+           selent! echo string(package)
            call add(b:node_local_unmatched, package)
        endif
    endif
@@ -371,9 +371,9 @@ endfunction"}}}
 function! ReloadNodeComplete()"{{{
     call s:compileLocalNodeData()
     if (has_key(b:node_local, "modules"))
-        echom "nodejsComplete: Reloaded '" . len(b:node_local.modules) . "' local nodes"
+        silent! echo "nodejsComplete: Reloaded '" . len(b:node_local.modules) . "' local nodes"
     else
-        echom "nodejsComplete: Found no local nodes to reload"
+        silent! echo "nodejsComplete: Found no local nodes to reload"
     endif
         
 endfunction"}}}
@@ -384,8 +384,8 @@ command! -nargs=0 RNC call ReloadNodeComplete()
 if exists('&ofu')
     call s:compileLocalNodeData()
     if (has_key(b:node_local, "modules"))
-        echom "nodejsComplete: Loaded '" . len(b:node_local.modules) . "' local nodes"
+        silent! echo "nodejsComplete: Loaded '" . len(b:node_local.modules) . "' local nodes"
     else
-        echom "nodejsComplete: Found no local nodes to load"
+        silent! echo "nodejsComplete: Found no local nodes to load"
     endif
 endif
