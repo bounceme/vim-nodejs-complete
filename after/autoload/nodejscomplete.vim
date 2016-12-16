@@ -233,7 +233,7 @@ function! s:isDeclaration(position)"{{{
   let [line_num, col_num] = a:position
   " syntaxName @see: $VIMRUNTIME/syntax/javascript.vim
   let syntaxName = synIDattr(synID(line_num, col_num, 0), 'name')
-  if syntaxName =~ '^javaScript\%(Comment\|LineComment\|String\|RegexpString\)'
+  if syntaxName =~? 'Comment\|String\|Regex'
     return 0
   else
     return 1
